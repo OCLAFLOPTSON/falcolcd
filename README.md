@@ -3,6 +3,7 @@
 Version: 0.1
 
 ---
+
 ## Current Modules:
 
 - ### HD44780 I2C Driver:
@@ -25,6 +26,7 @@ This library is designed to expand to include:
 - Parallel GPIO HD44780 drivers
 - OLED character-mode abstractions (if applicable)
 - Unified display interface layer across controllers
+
 ---
 
 ## Installation
@@ -32,6 +34,7 @@ This library is designed to expand to include:
 ```bash
 git clone <address>
 ```
+
 ---
 
 ## Example Usage (HD44780 I2C)
@@ -71,6 +74,7 @@ while True:
     else:
         lcd.write_str(lcd.special_char(0), (1,0))
 ```
+
 ---
 
 ## Custom Characters
