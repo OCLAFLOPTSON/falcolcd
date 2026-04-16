@@ -29,14 +29,6 @@ This library is designed to expand to include:
 
 ---
 
-## Installation
-
-```bash
-git clone <address>
-```
-
----
-
 ## Example Usage (HD44780 I2C)
 
 ```python
