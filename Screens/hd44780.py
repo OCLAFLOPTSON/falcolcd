@@ -83,7 +83,14 @@ class HD44780:
         self.command(self.Commands.LCD_SET_DDRAM | addr)
 
     def write_str(self, str, cursor: tuple[int, int]|bool=False):
-        '''Write a string to the screen module.'''
+        '''
+        Write a multi-character string literal to the screen.
+
+        ---
+        #### cursor
+        - A tuple of x/y coordinates for cursor placement.
+        - If ommitted, cursor remains at the last used location.
+        '''
         if (cursor and
             type(cursor) == tuple and
             type(cursor[0]) == int and
@@ -93,7 +100,13 @@ class HD44780:
             self.write_char(ord(char))
     
     def control_backlight(self, on: bool):
-        '''Turn the backlight on or off.'''
+        '''
+        Turn the backlight on or off.
+
+        ---
+        #### on
+        - If True, turn backlight on. Else, turn backlight off.
+        '''
         if on:
             self.backlight = 0x01
             self._write_byte(self.backlight)
@@ -103,9 +116,14 @@ class HD44780:
         
     def create_char(self, slot: int, bitmap: list[int]):
         """
-        ### Create a custom character in CGRAM.
-        - Slots: 0-7
-        - bitmap: list of 8 bytes (5-bit rows)
+        Create a custom character in CGRAM.
+
+        ---
+        #### slot
+        - 8 total, indexed from 0
+
+        #### bitmap
+        - list of 8 bytes (5-bit rows)
         """
         slot &= 0x07
         self.command(0x40 | (slot << 3))
@@ -114,7 +132,10 @@ class HD44780:
     
     def special_char(self, slot: int):
         """
-        ### Refer to a special character stored at slot in CGRAM.
-        - Slots: 0-7
+        Refer to a special character stored at slot in CGRAM.
+
+        ---
+        #### slot
+        - integer reference to slot number, 0 through 7
         """
         return chr(slot)

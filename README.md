@@ -94,6 +94,9 @@ rombus = [
 ]
 lcd.create_char(0, SpecialCharacters.smiley_face)
 lcd.create_char(1, rombus)
+
+lcd.write_str(lcd.special_char(0), (0,0))
+lcd.write_str(lcd.special_char(1), (0,1))
 ```
 
 ---
