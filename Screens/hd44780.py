@@ -1,83 +1,5 @@
 from machine import I2C
-from time import sleep_ms, sleep_us
-
-class CharacterMap:
-    def __init__(self)
-
-class SpecialCharacters:
-    backslash = [
-        0b10000,
-        0b01000,
-        0b01000,
-        0b00100,
-        0b00100,
-        0b00010,
-        0b00010,
-        0b00001
-    ]
-    smiley_face = [
-        0b00000,
-        0b00000,
-        0b01010,
-        0b01010,
-        0b00000,
-        0b10001,
-        0b01110,
-        0b00000,
-        0b00000
-    ]
-
-    class BorderBox:
-        top_left = [
-            0b00000,
-            0b00000,
-            0b00000,
-            0b00111,
-            0b00100,
-            0b00100,
-            0b00100,
-            0b00100
-        ]
-        top_right = [
-            0b00000,
-            0b00000,
-            0b00000,
-            0b00000,
-            0b11100,
-            0b00100,
-            0b00100,
-            0b00100
-        ]
-        bottom_left = [
-            0b00100,
-            0b00100,
-            0b00100,
-            0b00100,
-            0b00111,
-            0b00000,
-            0b00000,
-            0b00000
-        ]
-        horizontal = [
-            0b00000,
-            0b00000,
-            0b00000,
-            0b00000,
-            0b11111,
-            0b00000,
-            0b00000,
-            0b00000
-        ]
-        vertical = [
-            0b00100,
-            0b00100,
-            0b00100,
-            0b00100,
-            0b00100,
-            0b00100,
-            0b00100,
-            0b00100,
-        ]
+from asyncio import sleep_ms, sleep_us
 
 class HD44780:
     '''
@@ -182,12 +104,17 @@ class HD44780:
     def create_char(self, slot: int, bitmap: list[int]):
         """
         ### Create a custom character in CGRAM.
-        <hr>
-
-        - slot: 0-7
+        - Slots: 0-7
         - bitmap: list of 8 bytes (5-bit rows)
         """
         slot &= 0x07
         self.command(0x40 | (slot << 3))
         for row in bitmap:
             self.write_char(row)
+    
+    def special_char(self, slot: int):
+        """
+        ### Refer to a special character stored at slot in CGRAM.
+        - Slots: 0-7
+        """
+        return chr(slot)
